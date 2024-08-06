@@ -1,11 +1,11 @@
 import { DatePicker } from 'antd'
 
-const { RangePicker } = DatePicker;
+const { RangePicker } = DatePicker
 
 export default function User() {
   return (
     <div>
-      <RangePicker/>
+      <RangePicker />
     </div>
   )
 }

@@ -1,8 +1,8 @@
-import { Suspense } from 'react';
-import { useRoutes, Outlet, Navigate } from 'react-router-dom';
-import AppLayout from '../layouts/Layout';
-import Dash from '../pages/Dash';
-import routesConfig from './routes';
+import { Suspense } from 'react'
+import { useRoutes, Outlet, Navigate } from 'react-router-dom'
+import AppLayout from '../layouts/Layout'
+import Dash from '../pages/Dash'
+import routesConfig from './routes'
 
 const AppRoutes = () => {
   const routes = useRoutes([
@@ -14,19 +14,23 @@ const AppRoutes = () => {
           </Suspense>
         </AppLayout>
       ),
-      children: routesConfig,
+      children: routesConfig
     },
     {
       path: '*',
-      element: <Navigate to="/404" replace />,
+      element: <Navigate to='/404' replace />
     },
     {
       path: '404',
-      element: <Suspense fallback={<div>Loading...</div>}><Dash /></Suspense>,
-    },
-  ]);
+      element: (
+        <Suspense fallback={<div>Loading...</div>}>
+          <Dash />
+        </Suspense>
+      )
+    }
+  ])
 
-  return routes;
-};
+  return routes
+}
 
-export default AppRoutes;
+export default AppRoutes
