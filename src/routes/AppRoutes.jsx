@@ -1,10 +1,22 @@
-import { Suspense } from 'react'
-import { useRoutes, Outlet, Navigate } from 'react-router-dom'
+import { Suspense, useEffect } from 'react'
+import { useRoutes, Outlet, Navigate, useNavigate } from 'react-router-dom'
 import AppLayout from '../layouts/Layout'
 import Dash from '../pages/Dash'
 import routesConfig from './routes'
 
 const AppRoutes = () => {
+  const navigate = useNavigate()
+  useEffect(() => {
+    const handleLogout = () => {
+      navigate('/login');  
+    };
+  
+    window.addEventListener('logout', handleLogout);
+  
+    return () => {
+      window.removeEventListener('logout', handleLogout);
+    };
+  }, []);
   const routes = useRoutes([
     {
       element: (
