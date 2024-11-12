@@ -4,37 +4,37 @@ import { Link, useLocation } from 'react-router-dom'
 import { sidebarItems } from './sidebarItems'
 
 const { Sider } = Layout
-const getDefaultSelectedKeys = () => {
-  if (location.pathname === '/') {
-    return ['/dashboard']
-  }
-  return [location.pathname]
-}
 
 const Sidebar = ({ collapsed }) => {
   const location = useLocation()
   const [openKeys, setOpenKeys] = useState([])
-  const [selectedKeys, setSelectedKeys] = useState()
 
-  const getInitialOpenKeys = () => {
-    return sidebarItems.reduce((keys, item) => {
-      if (item.subItems && item.subItems.some((subItem) => location.pathname.includes(subItem.path))) {
-        keys.push(item.path)
-      }
-      return keys
-    }, [])
+  const getParentKey = (path) => {
+    return `parent-${path}`
   }
+
+  const getParentKeys = (pathname) => {
+    let keys = []
+    sidebarItems.forEach((item) => {
+      if (item.subItems && item.subItems.some((subItem) => subItem.path === pathname)) {
+        keys.push(getParentKey(item.path)) 
+      }
+    })
+    return keys
+  }
+
+  useEffect(() => {
+    if (!collapsed) {
+      const parentKeys = getParentKeys(location.pathname)
+      setOpenKeys(parentKeys)
+    }
+  }, [location.pathname, collapsed])
 
   useEffect(() => {
     if (collapsed) {
       setOpenKeys([])
-    } else {
-      if (openKeys.length === 0) {
-        setOpenKeys(getInitialOpenKeys())
-      }
     }
-    setSelectedKeys(getDefaultSelectedKeys())
-  }, [collapsed, location])
+  }, [collapsed])
 
   const onOpenChange = (keys) => {
     setOpenKeys(keys)
@@ -43,18 +43,18 @@ const Sidebar = ({ collapsed }) => {
   const menuItems = sidebarItems.map((item) => {
     if (item.subItems) {
       return {
-        key: item.path,
+        key: getParentKey(item.path), 
         icon: item.icon,
         label: item.text,
         children: item.subItems.map((subItem) => ({
-          key: subItem.path,
+          key: subItem.path, 
           icon: subItem.icon,
           label: <Link to={subItem.path}>{subItem.text}</Link>
         }))
       }
     }
     return {
-      key: item.path,
+      key: item.path, 
       icon: item.icon,
       label: <Link to={item.path}>{item.text}</Link>
     }
@@ -69,9 +69,8 @@ const Sidebar = ({ collapsed }) => {
     >
       <Menu
         mode='inline'
-        defaultSelectedKeys={[location.pathname]}
-        openKeys={!collapsed ? openKeys : []}
-        selectedKeys={selectedKeys}
+        openKeys={openKeys}
+        selectedKeys={[location.pathname]}
         onOpenChange={onOpenChange}
         style={{ height: '100%', borderRight: 0 }}
         items={menuItems}
