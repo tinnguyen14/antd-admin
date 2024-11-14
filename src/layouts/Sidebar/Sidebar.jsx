@@ -5,7 +5,7 @@ import { sidebarItems } from './sidebarItems'
 
 const { Sider } = Layout
 
-const Sidebar = ({ collapsed }) => {
+const Sidebar = ({ collapsed, isMobile }) => {
   const location = useLocation()
   const [openKeys, setOpenKeys] = useState([])
 
@@ -65,7 +65,7 @@ const Sidebar = ({ collapsed }) => {
       width={200}
       collapsedWidth={80}
       collapsed={collapsed}
-      style={{ position: 'fixed', height: '100vh', left: 0, top: 64, overflowY: 'auto', transition: 'all 0.2s' }}
+      style={{ position: 'fixed', height: '100vh', left: 0, top: isMobile ? 0 : 64, overflowY: 'auto', transition: 'all 0.2s' }}
     >
       <Menu
         mode='inline'
