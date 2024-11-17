@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Layout, Menu, Button } from 'antd'
-import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, AntDesignOutlined, MenuOutlined } from '@ant-design/icons'
+import { Layout, Menu, Button, Dropdown, Space } from 'antd'
+import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, MenuOutlined, DownOutlined } from '@ant-design/icons'
+import logo from '../assets/images/logo.png'
 
 const { Header } = Layout
 
@@ -12,44 +13,49 @@ const Navbar = ({ onToggleSidebar, isMobile }) => {
     onToggleSidebar(!collapsed)
   }
 
-  return (
-    <Header
-      style={{
-        position: 'fixed',
-        width: '100%',
-        zIndex: 1,
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '0 20px'
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        {/* <Button type='link' onClick={toggleSidebar} style={{ marginRight: '10px' }}>
-          {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-        </Button> */}
-        <Button
-         icon={
-          isMobile ? (
-            <MenuOutlined style={{ color: 'black' }} /> // Icon MenuOutlined khi ở chế độ mobile
-          ) : (
-            collapsed ? <MenuUnfoldOutlined style={{ color: 'black' }} /> : <MenuFoldOutlined style={{ color: 'black' }} />
-          )
+  const menuItems = (
+    <Menu
+      items={[
+        {
+          key: '1',
+          label: 'Profile',
+          icon: <UserOutlined />
         }
+      ]}
+    />
+  )
+
+  return (
+    <Header className='fixed w-full z-10 flex justify-between items-center px-5 bg-white shadow-md'>
+      <div className='flex items-center'>
+        <Button
+          icon={
+            isMobile ? (
+              <MenuOutlined style={{ fontSize: '20px', color: '#1677ff' }} />
+            ) : collapsed ? (
+              <MenuUnfoldOutlined style={{ fontSize: '20px', color: '#1677ff' }} />
+            ) : (
+              <MenuFoldOutlined style={{ fontSize: '20px', color: '#1677ff' }} />
+            )
+          }
           onClick={toggleSidebar}
-          style={{ 
-            fontSize: '20px', 
-            color: '#fff', 
-            marginRight: '10px',
-          }}
+          className='text-lg text-black mr-4'
+          type='text'
         />
-        <AntDesignOutlined style={{ fontSize: '20px', color: '#fff' }} />
+        <img src={logo} alt='Logo' className='w-10 h-10' />
+        <span className='bg-gradient-to-r from-primaryGradientStart to-primaryGradientEnd bg-clip-text text-transparent ml-2 text-lg font-semibold hidden md:block'>
+          Hệ thống giám sát
+        </span>
       </div>
-      <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['1']} style={{ lineHeight: '64px', border: 'none' }}>
-        <Menu.Item key='1' icon={<UserOutlined />}>
-          Profile
-        </Menu.Item>
-      </Menu>
+      <div>
+        <Dropdown overlay={menuItems} trigger={['hover']}>
+          <Space className='cursor-pointer'>
+            <UserOutlined className='text-primary text-xl' />
+            <span className='text-black'>user@example.com</span>
+            <DownOutlined style={{ fontSize: '10px' }} />
+          </Space>
+        </Dropdown>
+      </div>
     </Header>
   )
 }

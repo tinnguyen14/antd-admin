@@ -65,7 +65,7 @@ const Sidebar = ({ collapsed, isMobile }) => {
       width={200}
       collapsedWidth={80}
       collapsed={collapsed}
-      style={{ position: 'fixed', height: '100vh', left: 0, top: isMobile ? 0 : 64, overflowY: 'auto', transition: 'all 0.2s' }}
+      style={{ position: 'fixed', height: '100vh', left: 0, top: isMobile ? 0 : 70, overflowY: 'auto', transition: 'all 0.2s' }}
     >
       <Menu
         mode='inline'

@@ -3,6 +3,7 @@ import { useRoutes, Outlet, Navigate, useNavigate } from 'react-router-dom'
 import AppLayout from '../layouts/Layout'
 import Dash from '../pages/Dash'
 import routesConfig from './routes'
+import Login from '../pages/Auth/Login/Login'
 
 const AppRoutes = () => {
   const navigate = useNavigate()
@@ -27,6 +28,10 @@ const AppRoutes = () => {
         </AppLayout>
       ),
       children: routesConfig
+    },
+    {
+      path: '/login',
+      element: <Login />
     },
     {
       path: '*',

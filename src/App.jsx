@@ -7,7 +7,14 @@ import { ConfigProvider, Empty } from 'antd'
 function App() {
   return (
     <Router>
-      <ConfigProvider renderEmpty={() => <Empty description='Không có dữ liệu' />}>
+      <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: '#0048AB',
+
+        },
+      }}
+      renderEmpty={() => <Empty description='Không có dữ liệu' />}>
         <AppRoutes />
       </ConfigProvider>
     </Router>
