@@ -29,22 +29,24 @@ const AppLayout = () => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Navbar onToggleSidebar={handleToggleSidebar} isMobile={isMobile} />
-      {isMobile ? (
-        <Drawer
-          placement='left'
-          closable={true}
-          onClose={() => setDrawerVisible(false)}
-          open={drawerVisible}
-          style={{ padding: 0 }}
-          width={200}
-          title={null}
-        >
-          <Sidebar collapsed={false} isMobile={true} />
-        </Drawer>
-      ) : (
         <Layout>
-          <Sidebar collapsed={collapsed} />
-          <Layout style={{ marginLeft: collapsed ? 80 : 200, transition: 'all 0.2s', padding: '0 24px 24px' }}>
+         {isMobile ? (
+           <Drawer
+           placement='left'
+           closable={true}
+           onClose={() => setDrawerVisible(false)}
+           open={drawerVisible}
+           style={{ padding: 0, height: '100vh' }}
+           bodyStyle={{height: '100vh'}}
+           width={200}
+           title={null}
+         >
+           <Sidebar collapsed={false} isMobile={true} onToggle={handleToggleSidebar}/>
+         </Drawer>
+         ) : (
+          <Sidebar collapsed={collapsed}  onToggle={handleToggleSidebar}/>
+         )}
+          <Layout style={{ marginLeft: isMobile ? 0 : collapsed ? 80 : 200, transition: 'all 0.2s', padding: '0 24px 24px' }}>
             <Content
               style={{
                 padding: 24,
@@ -57,7 +59,6 @@ const AppLayout = () => {
             </Content>
           </Layout>
         </Layout>
-      )}
     </Layout>
   )
 }

@@ -1,4 +1,4 @@
-import { DashboardOutlined, UserOutlined, TeamOutlined, ProfileOutlined } from '@ant-design/icons'
+import { DashboardOutlined } from '@ant-design/icons'
 
 export const sidebarItems = [
   {
@@ -7,11 +7,16 @@ export const sidebarItems = [
     path: '/dashboard'
   },
   {
-    text: 'Users',
-    icon: <UserOutlined />,
-    subItems: [
-      { text: 'User List', icon: <TeamOutlined />, path: '/users/list' },
-      { text: 'User Profile', icon: <ProfileOutlined />, path: '/users/profile' }
-    ]
-  }
+    text: 'User List',
+    icon: <DashboardOutlined />,
+    path: '/users/list'
+  },
+  // {
+  //   text: 'Users',
+  //   icon: <UserOutlined />,
+  //   subItems: [
+  //     { text: 'User List', icon: <TeamOutlined />, path: '/users/list' },
+  //     { text: 'User Profile', icon: <ProfileOutlined />, path: '/users/profile' }
+  //   ]
+  // }
 ]

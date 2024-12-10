@@ -13,6 +13,7 @@ function App() {
           colorPrimary: '#1677ff',
 
         },
+       
       }}
       renderEmpty={() => <Empty description='Không có dữ liệu' />}>
         <AppRoutes />
